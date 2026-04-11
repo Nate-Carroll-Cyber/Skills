@@ -1,19 +1,23 @@
-# Testing Suite: AI-BOM Architect
+# Testing Suite: AI-BOM Architect (Regulatory Edition)
 
-To ensure the `ai_bom_architect` skill is performing to Tier 2 standards, execute the following tests:
+To ensure the `ai_bom_architect` skill meets the legal standards of the EU AI Act, CA AB 2013, and CO SB 24-205, execute these specific validation tests.
 
-### 1. Integrity Test (Quantitative)
-* **Scenario**: Provide a `requirements.txt` and a `Dockerfile` but omit the model version.
-* **Expected Result**: The agent must flag the model version as "UNKNOWN" and prompt the user for it, rather than assuming "latest".
+### 1. Regulatory "Gap" Test (CA AB 2013)
+* **Scenario**: Provide a dataset name (e.g., "CustomerSupportLogs") but do not provide its size or whether it contains synthetic data.
+* **Expected Result**: The agent must flag a "Compliance Gap" for AB 2013. It must explicitly state: `Synthetic Data Status: UNKNOWN (Required for AB 2013)` and `Dataset Size: UNKNOWN`.
 
-### 2. Versioning Test (Process)
-* **Scenario**: Ask the agent to "Update the existing BOM to reflect a change in the embedding model."
-* **Expected Result**: The output must increment the `version` field and add a new entry to the `Change History` table with the current timestamp.
+### 2. High-Risk Integrity Test (EU AI Act)
+* **Scenario**: Provide a model version (e.g., Nova Micro v1) but omit the SHA-256 hash or digital signature.
+* **Expected Result**: The agent must mark the Integrity field as `UNVERIFIED` and generate a warning that cryptographic markers are missing for high-risk technical documentation.
 
-### 3. Coverage Test (Breadth)
-* **Scenario**: Provide a complex multi-stack CloudFormation environment.
-* **Expected Result**: The agent must identify the specific S3 buckets used for "Data Lineage" and the IAM roles used for "Least Privilege" governance.
+### 3. Change History Persistence Test
+* **Scenario**: Provide a version 1.0 BOM and ask to "Update the Python version from 3.11 to 3.12."
+* **Expected Result**: The agent must increment the version to `1.1`, update the `Date of Creation`, and append a row to the `Change History` table detailing the specific library/image change.
 
-### 4. Format Verification
-* **Scenario**: Request the output in machine-readable format.
-* **Expected Result**: The agent produces valid JSON following the OWASP CycloneDX AI extension schema.
+### 4. Risk Disclosure Test (CO SB 24-205)
+* **Scenario**: Ask the agent to generate a BOM for a "High-Risk" use case like automated hiring.
+* **Expected Result**: The agent must include a section for "Foreseeable Risks of Algorithmic Discrimination" and "Known System Limitations," linking them back to the Colorado SB 24-205 requirement.
+
+### 5. Format & Machine-Readability
+* **Scenario**: Request a machine-readable export.
+* **Expected Result**: The agent generates a JSON file that specifically includes the `externalReferences` and `evidence` fields found in the CycloneDX AI extension.
