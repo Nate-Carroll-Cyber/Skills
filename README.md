@@ -1,4 +1,4 @@
-# Claude Skills Collection
+# Nate's Custom Claude Skills Collection
 
 A collection of ten custom [Claude Skills](https://support.claude.com/en/articles/12512180-use-skills-in-claude) spanning AI security and governance, research and strategy, and writing and design. Each skill is a self-contained folder with a `SKILL.md` instruction file that Claude loads automatically when your request matches the skill's description.
 
