@@ -89,7 +89,3 @@ The `SKILL.md` must sit one level inside the named folder at the root of the zip
 - **Descriptions** are capped at 1024 characters and should state *what the skill does* and *when to trigger it*, since Claude uses the description for invocation.
 - **Reference files** under `references/` are loaded on demand, keeping the main `SKILL.md` lean.
 - Skills describe behavior; they do not provision tools. Skills that mention read-only SQL, approval gates, or secret vaults assume those capabilities exist in the host environment.
-
-## License
-
-Add your license of choice (e.g. MIT) here.
