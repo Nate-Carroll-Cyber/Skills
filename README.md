@@ -14,7 +14,7 @@ A skill is a folder containing a required `SKILL.md` (YAML frontmatter with `nam
 | --- | --- | --- |
 | **`agent-governance-architect`** | Moves AI pilots into secure, auditable production via human-linked auth, fine-grained authorization, and lifecycle governance through a unified control plane. | — |
 | **`secure-ai-app-engineer`** | Security Architect that turns raw workflows into production-grade secure AI apps using OWASP, AppSec, and infrastructure best practices. | — |
-| **`ai-bom-architect`** | Generates a compliance-ready AI Bill of Materials mapped to the EU AI Act, California AB 2013, and Colorado SB 24-205, with zero-trust provenance. | `references/testing_suite.md` |
+| **`ai-bom-architect`** | Generates or audits an AI Bill of Materials against the 2026 CISA SBOM Minimum Elements — a mandatory 17-field baseline gate (PURLs, pinned versions, dependency graph, licenses, hashes, unknown-vs-withheld classification, companion VEX) — then layers EU AI Act, California AB 2013, and Colorado SB 24-205 disclosure mapping with zero-trust provenance. | `references/testing_suite.md` |
 | **`enterprise-data-auditor`** | Read-only, high-trust internal agent that audits database transactions for compliance anomalies with human approval gates, telemetry, and crash recovery. | — |
 | **`typescript-security-audit-checklist`** | Audits TypeScript code or PRs for runtime-validation gaps, dangerous type escapes, prototype pollution, and insecure compiler/CI configuration. | `references/testing_suite.md` |
 
@@ -89,3 +89,7 @@ The `SKILL.md` must sit one level inside the named folder at the root of the zip
 - **Descriptions** are capped at 1024 characters and should state *what the skill does* and *when to trigger it*, since Claude uses the description for invocation.
 - **Reference files** under `references/` are loaded on demand, keeping the main `SKILL.md` lean.
 - Skills describe behavior; they do not provision tools. Skills that mention read-only SQL, approval gates, or secret vaults assume those capabilities exist in the host environment.
+
+## Changelog
+
+- **2026-08-13 — `ai-bom-architect` v2.** Integrated the 2026 CISA *Minimum Elements for a Software Bill of Materials* (July 29, 2026) as a mandatory pre-regulatory gate: all 17 data fields plus practice elements scored before any EU AI Act / AB 2013 / SB 24-205 enrichment. New rules: lockfile-first software baseline, PURL/CPE identifier mandate, no version-range specifiers, `dependencies[]` graph required, SPDX license per component, UNKNOWN vs WITHHELD classification with recipient contact path, vulnerability claims relocated to a companion VEX/CSAF document, and legal-status framing (the Minimum Elements are guidance; binding force comes from instruments such as the EU CRA, FDA FD&C §524B, or procurement clauses). Testing suite expanded with eight minimum-elements gate tests (A1–A8) plus a legal-framing test (B6); validated against a live AI-BOM fixture with machine-checked assertions.
